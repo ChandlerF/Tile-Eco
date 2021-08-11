@@ -677,6 +677,8 @@ MonoBehaviour:
   Grid: {fileID: 2100387656}
   Mountain: {fileID: 8649954722351775298, guid: d0cc61798ecf82841a0193e7a758720f,
     type: 3}
+  MountainSpawner: {fileID: 2201501334847354760, guid: 0fe47e5c626a11845937f1daee3dac1c,
+    type: 3}
 --- !u!1 &611047700
 GameObject:
   m_ObjectHideFlags: 0

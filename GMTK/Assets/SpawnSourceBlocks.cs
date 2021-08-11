@@ -16,10 +16,12 @@ public class SpawnSourceBlocks : MonoBehaviour
     [SerializeField] float MinY;
     [SerializeField] float MaxY;
 
-    [SerializeField] Grid Grid;
+    public Grid Grid;
 
-    [SerializeField] GameObject Mountain;
+    public GameObject Mountain;
     private Vector3 MountainSpawn;
+
+    [SerializeField] GameObject MountainSpawner;
 
     void Start()
     {
@@ -46,64 +48,7 @@ public class SpawnSourceBlocks : MonoBehaviour
             MountainSpawn = new Vector2((SunSpawn.x + WaterSpawn.x) / 2, (SunSpawn.y + WaterSpawn.y) / 2);
 
             Instantiate(Mountain, Grid.GetCellCenterWorld(Grid.WorldToCell(MountainSpawn)), Mountain.transform.rotation);
-
-
-
-
-
-
-            int FirstRandomNumber = Random.Range(-1, 1);
-            int SecondRandomNumber = Random.Range(-1, 1);
-
-            Vector2 SecondMountainCoordinates;
-            Vector2 ThirdMountainCoordinates;
-
-            if (FirstRandomNumber == 0 && SecondRandomNumber == 0)
-            {
-                SecondMountainCoordinates = new Vector2((int)Grid.WorldToCell(MountainSpawn).x, (int)Grid.WorldToCell(MountainSpawn).y + 1);
-
-                ThirdMountainCoordinates = new Vector2((int)Grid.WorldToCell(MountainSpawn).x - 1, (int)Grid.WorldToCell(MountainSpawn).y);
-                Debug.Log("If statement called");
-            }
-            else
-            {
-
-                SecondMountainCoordinates = new Vector2((int)Grid.WorldToCell(MountainSpawn).x + FirstRandomNumber, (int)Grid.WorldToCell(MountainSpawn).y + SecondRandomNumber);                //MountainSpawn.x + FirstRandomNumber, MountainSpawn.y + SecondRandomNumber);
-
-
-                ThirdMountainCoordinates = new Vector2((int)Grid.WorldToCell(MountainSpawn).x - FirstRandomNumber, (int)Grid.WorldToCell(MountainSpawn).y - SecondRandomNumber);
-
-            }
-
-            Debug.Log("---------");
-
-
-            Debug.Log("FirstRandomNumber :" + FirstRandomNumber);
-            Debug.Log("SecondRandomNumber :" + SecondRandomNumber);
-
-
-            Debug.Log("Mountain 1 :" + Grid.WorldToCell(MountainSpawn));
-            Debug.Log("Mountain 2 :" + Grid.WorldToCell(SecondMountainCoordinates));
-            Debug.Log("Mountain 3 :" + Grid.WorldToCell(ThirdMountainCoordinates));
-
-
-            Debug.Log("FirstRandomNumber + Mountain 1 :" + Grid.WorldToCell(MountainSpawn).x + FirstRandomNumber + " = " + (Grid.WorldToCell(MountainSpawn).x + FirstRandomNumber));
-            Debug.Log("SecondRandomNumber + Mountain 1 :" + Grid.WorldToCell(MountainSpawn).y + SecondRandomNumber + " = " + (Grid.WorldToCell(MountainSpawn).y + SecondRandomNumber));
-
-            Debug.Log("FirstRandomNumber + Mountain 2 :" + Grid.WorldToCell(SecondMountainCoordinates).x + FirstRandomNumber);
-            Debug.Log("SecondRandomNumber + Mountain 2 :" + Grid.WorldToCell(SecondMountainCoordinates).y + SecondRandomNumber);
-
-
-            Debug.Log("---------");
-
-
-
-            Instantiate(Mountain, Grid.GetCellCenterWorld(Grid.WorldToCell(SecondMountainCoordinates)), Mountain.transform.rotation);
-
-            Instantiate(Mountain, Grid.GetCellCenterWorld(Grid.WorldToCell(ThirdMountainCoordinates)), Mountain.transform.rotation);
-
-            /*Debug.Log(FirstRandomNumber);
-            Debug.Log(SecondRandomNumber);*/
+            Instantiate(MountainSpawner, Grid.GetCellCenterWorld(Grid.WorldToCell(MountainSpawn)), Mountain.transform.rotation);
         }
 
 
@@ -113,61 +58,3 @@ public class SpawnSourceBlocks : MonoBehaviour
         }
     }
 }
-
-
-
-
-/*
-  
-            int FirstRandomNumber = Random.Range(-1, 1);
-            int SecondRandomNumber = Random.Range(-1, 1);
-
-            Vector2 SecondMountainCoordinates;
-            Vector2 ThirdMountainCoordinates;
-
-            if (FirstRandomNumber == 0 && SecondRandomNumber == 0)
-            {
-                SecondMountainCoordinates = new Vector2((int)Grid.WorldToCell(MountainSpawn).x, (int)Grid.WorldToCell(MountainSpawn).y + 1);
-
-                ThirdMountainCoordinates = new Vector2((int)Grid.WorldToCell(MountainSpawn).x - 1, (int)Grid.WorldToCell(MountainSpawn).y);
-                Debug.Log("If statement called");
-            }
-            else
-            {
-
-                SecondMountainCoordinates = new Vector2((int)Grid.WorldToCell(MountainSpawn).x + FirstRandomNumber, (int)Grid.WorldToCell(MountainSpawn).y + SecondRandomNumber);                //MountainSpawn.x + FirstRandomNumber, MountainSpawn.y + SecondRandomNumber);
-
-
-                ThirdMountainCoordinates = new Vector2((int)Grid.WorldToCell(MountainSpawn).x - FirstRandomNumber, (int)Grid.WorldToCell(MountainSpawn).y - SecondRandomNumber);
-
-            }
-
-            Debug.Log("---------");
-
-
-            Debug.Log("FirstRandomNumber :" + FirstRandomNumber);
-            Debug.Log("SecondRandomNumber :" + SecondRandomNumber);
-
-
-            Debug.Log("Mountain 1 :" + Grid.WorldToCell(MountainSpawn));
-            Debug.Log("Mountain 2 :" + Grid.WorldToCell(SecondMountainCoordinates));
-            Debug.Log("Mountain 3 :" + Grid.WorldToCell(ThirdMountainCoordinates));
-
-
-            Debug.Log("FirstRandomNumber + Mountain 1 :" + Grid.WorldToCell(MountainSpawn).x + FirstRandomNumber + " = " + (Grid.WorldToCell(MountainSpawn).x + FirstRandomNumber));
-            Debug.Log("SecondRandomNumber + Mountain 1 :" + Grid.WorldToCell(MountainSpawn).y + SecondRandomNumber + " = " + (Grid.WorldToCell(MountainSpawn).y + SecondRandomNumber));
-
-            Debug.Log("FirstRandomNumber + Mountain 2 :" + Grid.WorldToCell(SecondMountainCoordinates).x + FirstRandomNumber);
-            Debug.Log("SecondRandomNumber + Mountain 2 :" + Grid.WorldToCell(SecondMountainCoordinates).y + SecondRandomNumber);
-
-
-            Debug.Log("---------");
-
-
-
-            Instantiate(Mountain, Grid.GetCellCenterWorld(Grid.WorldToCell(SecondMountainCoordinates)), Mountain.transform.rotation);
-
-            Instantiate(Mountain, Grid.GetCellCenterWorld(Grid.WorldToCell(ThirdMountainCoordinates)), Mountain.transform.rotation);
-
-            /*Debug.Log(FirstRandomNumber);
-            Debug.Log(SecondRandomNumber);*/
