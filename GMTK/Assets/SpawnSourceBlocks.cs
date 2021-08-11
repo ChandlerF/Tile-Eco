@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class SpawnSourceBlocks : MonoBehaviour
 {
-    public GameObject SunSource;
+    [SerializeField] GameObject SunSource;
     private Vector3 SunSpawn;
 
-    public GameObject WaterSource;
+    [SerializeField] GameObject WaterSource;
     private Vector3 WaterSpawn;
 
-    public float MinX;
-    public float MaxX;
+    [SerializeField] float MinX;
+    [SerializeField] float MaxX;
 
-    public float MinY;
-    public float MaxY;
+    [SerializeField] float MinY;
+    [SerializeField] float MaxY;
 
-    public Grid Grid;
+    [SerializeField] Grid Grid;
 
     void Start()
     {

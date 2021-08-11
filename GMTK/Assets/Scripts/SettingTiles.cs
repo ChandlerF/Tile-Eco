@@ -144,6 +144,7 @@ public class SettingTiles : MonoBehaviour
 
 
 
+
     public void SpawnTile()
     {
 
@@ -152,7 +153,7 @@ public class SettingTiles : MonoBehaviour
 
 
         //If you have Not sun tile and replace a tile that's not the same as itself
-        //Putting Water on grass, vise versa
+        //Putting Water or grass on an existing tile
         if (HoveringOverObject != null && SelectedTile != SunTile && !SelectedTile.CompareTag(HoveringOverObject.tag))
         {
 
@@ -160,11 +161,28 @@ public class SettingTiles : MonoBehaviour
             if (HoveringOverObject.CompareTag("Plant"))
             {
                 HoveringOverObject.GetComponent<AnimDestroyGameObject>().PlantsDeath();
+            } 
+            
+            //Place Grass if sun has at least some life
+            if (SelectedTile == PlantTile && HoveringOverObject.CompareTag("Sun"))
+            {
+                if(HoveringOverObject.GetComponent<Sun>().CurrentTimer > 1)
+                {
+                    //Destroy tile, place new one
+                    Destroy(HoveringOverObject);
+                    Instantiate(SelectedTile, Grid.GetCellCenterWorld(Grid.WorldToCell(HoveringOverObject.transform.position)), SelectedTile.transform.rotation);
+                
+                }
+            }
+            else
+            {
+                
+                //Destroy tile, place new one
+                Destroy(HoveringOverObject);
+                Instantiate(SelectedTile, Grid.GetCellCenterWorld(Grid.WorldToCell(HoveringOverObject.transform.position)), SelectedTile.transform.rotation);
+
             }
 
-            //Destroy tile, place new one
-            Destroy(HoveringOverObject);
-            Instantiate(SelectedTile, Grid.GetCellCenterWorld(Grid.WorldToCell(HoveringOverObject.transform.position)), SelectedTile.transform.rotation);
 
 
             //Change a Sun's timer (new round)
@@ -186,12 +204,13 @@ public class SettingTiles : MonoBehaviour
 
 
 
+
         //If replacing a tile with a sun
         else if(HoveringOverObject != null && SelectedTile == SunTile)
         {
 
             //Resetting Sun Tiles Timer; instead of replacing it (to not delete grass tiles when placed)
-            if (HoveringOverObject.CompareTag("Sun"))
+            if (HoveringOverObject.CompareTag("Sun") && HoveringOverObject.GetComponent<Sun>().CurrentTimer != HoveringOverObject.GetComponent<Sun>().TimerMax)
             {
                 HoveringOverObject.GetComponent<Sun>().CurrentTimer = HoveringOverObject.GetComponent<Sun>().TimerMax;
             }
@@ -226,6 +245,7 @@ public class SettingTiles : MonoBehaviour
             //Timer to place / recieve New Tile
             CurrentTileScript.CurrentTimer = CurrentTileScript.Timer;
         }
+
 
 
         //If placing a tile on an empty spot

@@ -12,6 +12,7 @@ TagManager:
   - PlayerManager
   - Soundtrack
   - TurnBaseToggle
+  - Mountain
   layers:
   - Default
   - TransparentFX
