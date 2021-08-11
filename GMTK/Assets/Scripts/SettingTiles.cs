@@ -152,99 +152,113 @@ public class SettingTiles : MonoBehaviour
         Vector3Int coordinate = Grid.WorldToCell(mouseWorldPos);
 
 
-        //If you have Not sun tile and replace a tile that's not the same as itself
-        //Putting Water or grass on an existing tile
-        if (HoveringOverObject != null && SelectedTile != SunTile && !SelectedTile.CompareTag(HoveringOverObject.tag))
+        //Replacing a tile
+        if (HoveringOverObject != null && !HoveringOverObject.CompareTag("Mountain"))
         {
 
-            //Point Pop Up and changes Score
-            if (HoveringOverObject.CompareTag("Plant"))
-            {
-                HoveringOverObject.GetComponent<AnimDestroyGameObject>().PlantsDeath();
-            } 
-            
-            //Place Grass if sun has at least some life
-            if (SelectedTile == PlantTile && HoveringOverObject.CompareTag("Sun"))
-            {
-                if(HoveringOverObject.GetComponent<Sun>().CurrentTimer > 1)
-                {
-                    //Destroy tile, place new one
-                    Destroy(HoveringOverObject);
-                    Instantiate(SelectedTile, Grid.GetCellCenterWorld(Grid.WorldToCell(HoveringOverObject.transform.position)), SelectedTile.transform.rotation);
-                
-                }
-            }
-            else
-            {
-                
-                //Destroy tile, place new one
-                Destroy(HoveringOverObject);
-                Instantiate(SelectedTile, Grid.GetCellCenterWorld(Grid.WorldToCell(HoveringOverObject.transform.position)), SelectedTile.transform.rotation);
 
-            }
-
-
-
-            //Change a Sun's timer (new round)
-            if (!InDeveloperMode)
+            //If you have Not sun tile and replace a tile that's not the same as itself
+            //Putting Water or grass on an existing tile
+            if (SelectedTile != SunTile && !SelectedTile.CompareTag(HoveringOverObject.tag))
             {
 
-                if (GameObject.FindGameObjectWithTag("Sun").GetComponent<Sun>().TurnBased)
-                {
-                    GameObject.FindGameObjectWithTag("Sun").GetComponent<Sun>().CurrentTimer -= 1;
-                }
-
-                SelectedTileImage.enabled = false;
-                SelectedTile = null;
-            }
-
-            //Timer to place / recieve New Tile
-            CurrentTileScript.CurrentTimer = CurrentTileScript.Timer;
-        } 
-
-
-
-
-        //If replacing a tile with a sun
-        else if(HoveringOverObject != null && SelectedTile == SunTile)
-        {
-
-            //Resetting Sun Tiles Timer; instead of replacing it (to not delete grass tiles when placed)
-            if (HoveringOverObject.CompareTag("Sun") && HoveringOverObject.GetComponent<Sun>().CurrentTimer != HoveringOverObject.GetComponent<Sun>().TimerMax)
-            {
-                HoveringOverObject.GetComponent<Sun>().CurrentTimer = HoveringOverObject.GetComponent<Sun>().TimerMax;
-            }
-
-            //Destroy tile, place new one
-            else
-            {
                 //Point Pop Up and changes Score
                 if (HoveringOverObject.CompareTag("Plant"))
                 {
                     HoveringOverObject.GetComponent<AnimDestroyGameObject>().PlantsDeath();
                 }
 
-                Destroy(HoveringOverObject);
-                Instantiate(SelectedTile, Grid.GetCellCenterWorld(Grid.WorldToCell(HoveringOverObject.transform.position)), SelectedTile.transform.rotation);
-            }
-
-
-            //Change a Sun's timer (new round)
-            if (!InDeveloperMode)
-            {
-
-                if (GameObject.FindGameObjectWithTag("Sun").GetComponent<Sun>().TurnBased)
+                //Place Grass if sun has at least some life
+                if (SelectedTile == PlantTile && HoveringOverObject.CompareTag("Sun"))
                 {
-                    GameObject.FindGameObjectWithTag("Sun").GetComponent<Sun>().CurrentTimer -= 1;
+                    if (HoveringOverObject.GetComponent<Sun>().CurrentTimer > 1)
+                    {
+                        //Destroy tile, place new one
+                        Destroy(HoveringOverObject);
+                        Instantiate(SelectedTile, Grid.GetCellCenterWorld(Grid.WorldToCell(HoveringOverObject.transform.position)), SelectedTile.transform.rotation);
+
+                    }
+                }
+                else
+                {
+
+                    //Destroy tile, place new one
+                    Destroy(HoveringOverObject);
+                    Instantiate(SelectedTile, Grid.GetCellCenterWorld(Grid.WorldToCell(HoveringOverObject.transform.position)), SelectedTile.transform.rotation);
+
                 }
 
-                SelectedTileImage.enabled = false;
-                SelectedTile = null;
+
+
+                //Change a Sun's timer (new round)
+                if (!InDeveloperMode)
+                {
+
+                    if (GameObject.FindGameObjectWithTag("Sun").GetComponent<Sun>().TurnBased)
+                    {
+                        GameObject.FindGameObjectWithTag("Sun").GetComponent<Sun>().CurrentTimer -= 1;
+                    }
+
+                    SelectedTileImage.enabled = false;
+                    SelectedTile = null;
+                }
+
+                //Timer to place / recieve New Tile
+                CurrentTileScript.CurrentTimer = CurrentTileScript.Timer;
             }
 
-            //Timer to place / recieve New Tile
-            CurrentTileScript.CurrentTimer = CurrentTileScript.Timer;
+
+
+
+
+
+
+
+            //If replacing a tile with a sun
+            else if (SelectedTile == SunTile)
+            {
+
+                //Resetting Sun Tiles Timer; instead of replacing it (to not delete grass tiles when placed)
+                if (HoveringOverObject.CompareTag("Sun") && HoveringOverObject.GetComponent<Sun>().CurrentTimer != HoveringOverObject.GetComponent<Sun>().TimerMax)
+                {
+                    HoveringOverObject.GetComponent<Sun>().CurrentTimer = HoveringOverObject.GetComponent<Sun>().TimerMax;
+                }
+
+                //Destroy tile, place new one
+                else
+                {
+                    //Point Pop Up and changes Score
+                    if (HoveringOverObject.CompareTag("Plant"))
+                    {
+                        HoveringOverObject.GetComponent<AnimDestroyGameObject>().PlantsDeath();
+                    }
+
+                    Destroy(HoveringOverObject);
+                    Instantiate(SelectedTile, Grid.GetCellCenterWorld(Grid.WorldToCell(HoveringOverObject.transform.position)), SelectedTile.transform.rotation);
+                }
+
+
+                //Change a Sun's timer (new round)
+                if (!InDeveloperMode)
+                {
+
+                    if (GameObject.FindGameObjectWithTag("Sun").GetComponent<Sun>().TurnBased)
+                    {
+                        GameObject.FindGameObjectWithTag("Sun").GetComponent<Sun>().CurrentTimer -= 1;
+                    }
+
+                    SelectedTileImage.enabled = false;
+                    SelectedTile = null;
+                }
+
+                //Timer to place / recieve New Tile
+                CurrentTileScript.CurrentTimer = CurrentTileScript.Timer;
+            }
         }
+
+
+
+
 
 
 
